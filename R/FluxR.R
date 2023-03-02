@@ -43,6 +43,7 @@ lgr_meld <- function(directory) {
 flux_meld <- function(directory) {
   require(vroom)
   require(readr)
+  require(dplyr)
 
 
   message("Melding flux data...")
@@ -54,14 +55,15 @@ flux_meld <- function(directory) {
       full.names = T,
       recursive = T
     )
-  co2 <- l <-
+#assign("ch4", ch4, .GlobalEnv)
+  co2 <-
     list.files(
       directory,
       pattern = "co2_flux.csv",
       full.names = T,
       recursive = T
     )
-
+#assign("co2", co2, .GlobalEnv)
 
   bch4 <-  suppressMessages(vroom(ch4, delim = ","))
   bco2 <-  suppressMessages(vroom(co2, delim = ","))
