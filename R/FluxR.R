@@ -225,7 +225,7 @@ lgr_flux <- function(lgr_data,
 
     else if(conf ==4){
       f <- lgr1
-      f[5:58] <- NA
+      f[5:length(f)] <- NA
       fl <- f
       assign("conf", conf, .GlobalEnv)
     }
@@ -310,7 +310,7 @@ lgr_flux <- function(lgr_data,
     }
     else if (conf_1 == 2) {
       f <- flux_edit_1
-      f[5:58] <- NA
+      f[5:length(f)] <- NA
       fl1 <- f
     }
 
@@ -627,7 +627,7 @@ lgr_flux <- function(lgr_data,
       for (h in dif) {
         add <- flux_edit_ch4 %>%
           filter(id == h)
-        add[5:58] <- NA
+        add[5:length(add)] <- NA
         flux_edit_ch4_1 <- rbind(flux_edit_ch4_1, add)
         assign("flux_edit_ch4_1", flux_edit_ch4_1, .GlobalEnv)
       }
@@ -672,7 +672,7 @@ lgr_flux <- function(lgr_data,
       for (h in dif) {
         add <- flux_edit_co2 %>%
           filter(id == h)
-        add[5:58] <- NA
+        add[5:length(add)] <- NA
         flux_edit_co2_1 <- rbind(flux_edit_co2_1, add)
         assign("flux_edit_co2_1", flux_edit_co2_1, .GlobalEnv)
       }
