@@ -30,7 +30,7 @@ lgr_meld <- function(directory) {
     )
   b <-  suppressMessages(vroom(l, skip = 1, delim = ","))
   l <- list.files(directory, pattern = ".txt")
-  write_csv(b, paste0(directory, "/", directory, "_melded.csv"))
+  write_csv(b, paste0(directory, "/", directory, "melded.csv"))
   message("Files Melded.")
 }
 
@@ -839,9 +839,9 @@ Mapping CH4 Regressions...")
 
     cat(red(bold(paste0("\nFluxes for ", ff, " complete.\n"))))
     Sys.sleep(2)
-    rm(list = c("flux_edit", "flux_edit_2", "flux_edit_ch4",
+    if(exists("flux_edit")){rm(list = c("flux_edit", "flux_edit_2", "flux_edit_ch4",
                "flux_edit_ch4_1", "flux_edit_co2", "flux_edit_co2_1", "a",
-               "ch4", "conf", "conf1", "lsf"))
+               "ch4", "conf", "conf1", "lsf"))}
 
   }
   cat(red(bold("\nAnalysis Complete\n")))
