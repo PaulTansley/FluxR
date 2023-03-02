@@ -34,6 +34,50 @@ lgr_meld <- function(directory) {
   message("Files Melded.")
 }
 
+#' Flux meld
+#' #'Rbinds and left_joins all co2 and ch4 datasets together in the given directory,
+#' adds NA to esxcluded flux. Output is saved to "flux_melded.csv"
+#'@param directory The path as a character string to the given directory
+#'@examples
+#'flux_meld(C:/path/to/files)
+flux_meld <- function(directory) {
+  require(vroom)
+  require(readr)
+
+
+  message("Melding flux data...")
+
+  ch4 <-
+    list.files(
+      directory,
+      pattern = "ch4_flux.csv",
+      full.names = T,
+      recursive = T
+    )
+  co2 <- l <-
+    list.files(
+      directory,
+      pattern = "co2_flux.csv",
+      full.names = T,
+      recursive = T
+    )
+
+
+  bch4 <-  suppressMessages(vroom(ch4, delim = ","))
+  bco2 <-  suppressMessages(vroom(co2, delim = ","))
+
+
+  if(count(bch4) > count(bco2)){
+    c <- left_join(bch4, bco2)}
+  else{
+    c <- left_join(bco2, bch4)
+  }
+
+  write_csv(c, paste0(directory, "/", "_flux_melded.csv"))
+  assign("fluxes", c, .GlobalEnv)
+  message("Files Melded.")
+}
+
 #'Flux Calculator
 #'
 #'Takes in lgr melded or unmelded data, as csv or txt. IF TXT FIRST ROW WILL BE SKIPPED.
