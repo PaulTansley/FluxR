@@ -1327,8 +1327,12 @@ lgr_flux2 <- function(lgr_data,
                    chamber_volume = c(0.002097341,0.022166568,0.032951432,0.016,0.036),
                    chamber_area = c(0.010029, 0.064692, 0.098980, 0.0707,0.09))
 
+    chmb$m2 <- 1/chmb$chamber_area
+
     names(time1) <- gsub("dipwell", "sample_ID", names(time1))
     names(time1) <- gsub("Chamber Type", "chamber", names(time1))
+
+
 
 
     ghg_renew <- data.frame()
@@ -1520,9 +1524,11 @@ lgr_flux2 <- function(lgr_data,
     co2_coefs <- as.data.frame(coef(co2_coefs)) %>%
       rownames_to_column("id") %>%
       left_join(tm1, by = "id") %>%
-      mutate(co2_flux =  t / chamber_area)
+      mutate(co2_g_s_m2 =  t / chamber_area*m2)
 
     names(co2_coefs) <- names_co2
+
+
 
     ch4_coefs <- lmList(mass_ch4_g ~ t |
                           id,
@@ -1532,7 +1538,7 @@ lgr_flux2 <- function(lgr_data,
     ch4_coefs <- as.data.frame(coef(ch4_coefs)) %>%
       rownames_to_column("id") %>%
       left_join(tm1, by = "id") %>%
-      mutate(co2_flux =  t / chamber_area)
+      mutate(ch4_g_s_m2 =  t / chamber_area * m2)
 
 
     flux_ch4 <- ch4_coefs
